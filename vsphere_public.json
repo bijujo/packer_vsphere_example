@@ -1,0 +1,42 @@
+{
+  "builders": [
+    {
+      "type": "vsphere-iso",
+      "vcenter_server":      "vCenter IP or FQDN",
+      "username":            "vCenter_user_name",
+      "password":            "vCenter_password",
+      "insecure_connection": "true",
+      "vm_name": "some_name_for_VM",
+      "cluster": "ESX_Cluster_Name",
+      "resource_pool": "ESX_Resource_Pool",
+      "datastore": "ESX_Datastore",
+      "network": "VM_Network",
+      "guest_os_type": "rhel7_64Guest",
+      "ssh_username": "root",
+      "ssh_password": "root_password",
+      "CPUs":             2,
+      "CPU_limit":        -1,
+      "RAM":              4096,
+      "RAM_reserve_all": false,
+      "disk_controller_type":  "pvscsi",
+      "disk_size":        51200,
+      "network_card": "vmxnet3",
+      "iso_paths": [
+              "[DATASTORE_NAME] rhel-server-7.2-x86_64-dvd.iso"
+      ],
+      "floppy_files": [
+        "ks.cfg"
+      ],
+      "boot_command": [
+        "<tab> text ks=hd:fd0:/ks.cfg <enter><wait>"
+      ]
+      }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": ["ls /"]
+    }
+  ]
+}
